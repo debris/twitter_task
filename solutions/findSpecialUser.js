@@ -7,15 +7,11 @@ var findSpecialUser = function (users) {
 	var usersCopy = users.slice();
 
 	while (usersCopy.length > 1) {
-		var i = random(usersCopy.length);
-		var j = random(usersCopy.length);
-		if (i === j)
-			continue;
-
-		var a = usersCopy[i];
+		var i = random(usersCopy.length - 1);
+		var j = i + 1; 
+		
+        var a = usersCopy[i];
 		var b = usersCopy[j];
-
-        //console.log(i + ' ' + j);
 
         // remove users not matching condition
 		if (a.isFollowing(b))
