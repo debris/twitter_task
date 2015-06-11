@@ -435,10 +435,35 @@ var list4 = [ { _id: 149, _follows: [ 118 ] },
   { _id: 0, _follows: [ 115, 16, 17 ] }
 ];
 
-var users = generator.fromList(list4);
+var toCompare = [
+    '../solutions/findSpecialUser',
+    '../solutions/simple'
+];
 
-benchmark.start();
-console.log(users);
-console.log(findSpecialUser(users));
-console.log(benchmark.result());
+it('should run test on list on predefined lists', function () {
+
+    [list, list2, list3, list4].forEach(function (l, i) {
+        console.log('================================================');
+        console.log('================================================');
+        console.log('test number: ' + i);
+        toCompare.forEach(function (name) {
+            var f = require(name);
+            var users = generator.fromList(l);
+            benchmark.start();
+            var s = f(users)
+            var result = benchmark.result();
+            console.log('function: ' + name);
+            console.log('user: ' + JSON.stringify(s));
+            console.log('result: ' + result);
+            console.log('========================');
+        });
+    });
+
+}); 
+
+//var users = generator.fromList(list4);
+//benchmark.start();
+//console.log(users);
+//console.log(findSpecialUser(users));
+//console.log(benchmark.result());
 

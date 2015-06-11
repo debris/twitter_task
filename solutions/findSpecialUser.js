@@ -15,7 +15,7 @@ var findSpecialUser = function (users) {
 		var a = usersCopy[i];
 		var b = usersCopy[j];
 
-        console.log(i + ' ' + j);
+        //console.log(i + ' ' + j);
 
         // remove users not matching condition
 		if (a.isFollowing(b))
