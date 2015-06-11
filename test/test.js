@@ -1,6 +1,5 @@
 
 var generator = require('../generator');
-var findSpecialUser = require('../solutions/findSpecialUser');
 var benchmark = require('../benchmark');
 
 var list = [
