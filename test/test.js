@@ -434,31 +434,61 @@ var list4 = [ { _id: 149, _follows: [ 118 ] },
   { _id: 0, _follows: [ 115, 16, 17 ] }
 ];
 
+var list5 = [ { _id: 14, _follows: [ 6 ] },
+  { _id: 13, _follows: [ 12, 5 ] },
+  { _id: 12, _follows: [ 8, 4 ] },
+  { _id: 11, _follows: [ 4 ] },
+  { _id: 10, _follows: [ 4, 6, 9 ] },
+  { _id: 9, _follows: [ 10, 3, 4, 6 ] },
+  { _id: 8, _follows: [ 14, 11, 12, 9 ] },
+  { _id: 7, _follows: [ 1, 0, 3 ] },
+  { _id: 6, _follows: [ 5, 13, 1, 3 ] },
+  { _id: 5, _follows: [ 13, 1, 9 ] },
+  { _id: 4, _follows: [ 7, 2, 13 ] },
+  { _id: 3, _follows: [ 10, 7, 11, 12, 13 ] },
+  { _id: 2, _follows: [ 3, 8 ] },
+  { _id: 1,
+    _follows: [ 10, 12, 9, 14, 13, 11, 8, 7, 6, 5, 4, 3, 2, 0 ] },
+  { _id: 0, _follows: [ 9 ] } 
+];
+
 var toCompare = [
     '../solutions/findSpecialUser',
     '../solutions/simple'
 ];
 
+var test = function (users, i) {
+    console.log('================================================');
+    console.log('================================================');
+    console.log('test number: ' + i);
+    console.log('users');
+    console.log(users);
+    toCompare.forEach(function (name) {
+        var f = require(name);
+        benchmark.start();
+        var s = f(users)
+        var result = benchmark.result();
+        console.log('function: ' + name);
+        console.log('user: ' + JSON.stringify(s));
+        console.log('result: ' + result);
+        console.log('========================');
+    });
+};
+
 it('should run test on list on predefined lists', function () {
 
-    [list, list2, list3, list4].forEach(function (l, i) {
-        console.log('================================================');
-        console.log('================================================');
-        console.log('test number: ' + i);
-        toCompare.forEach(function (name) {
-            var f = require(name);
-            var users = generator.fromList(l);
-            benchmark.start();
-            var s = f(users)
-            var result = benchmark.result();
-            console.log('function: ' + name);
-            console.log('user: ' + JSON.stringify(s));
-            console.log('result: ' + result);
-            console.log('========================');
-        });
-    });
+    [list, list2, list3, list4, list5].map(function (l) { 
+        return generator.fromList(l); 
+    }).forEach(test);
 
 }); 
+
+it('should run test on random user lists', function () {
+    var i = [];
+    for (; i.length < 10;)
+        i.push(generator.random(15));
+    //i.forEach(test);
+});
 
 //var users = generator.fromList(list4);
 //benchmark.start();
